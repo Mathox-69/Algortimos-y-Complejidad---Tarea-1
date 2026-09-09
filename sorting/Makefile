@@ -30,3 +30,4 @@ clean:
 	rm -f data/array_input/*.txt
 	rm -f data/plots/*.png
 	rm -f data/tablas/*.tex
+	rm -f data/measurements/*.csv

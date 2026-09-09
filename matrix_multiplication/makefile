@@ -27,3 +27,5 @@ clean:
 	rm -f data/matrix_output/strassen/*.txt
 	rm -f data/plots/*.png
 	rm -f data/tablas/*.tex
+	rm -f data/measurements/*.csv
+	rm -f data/matrix_input/*.txt
