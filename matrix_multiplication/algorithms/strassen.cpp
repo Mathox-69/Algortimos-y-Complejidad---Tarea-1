@@ -4,24 +4,24 @@
 #include <vector>
 using namespace std;
 
-void suma(const vector<vector<int>>&A,const vector<vector<int>>&B,vector<vector<int>>&C,int n){
+void suma(const vector<vector<int>>&A,const vector<vector<int>>&B,vector<vector<int>>&resultado,int n){
     for(int i = 0; i<n; i++){
         for(int j = 0; j<n; j++){
-            C[i][j] = A[i][j]+B[i][j];
+            resultado[i][j] = A[i][j]+B[i][j];
         }
     }
 }
 
-void resta(const vector<vector<int>>&A,const vector<vector<int>>&B,vector<vector<int>>&C,int n){
+void resta(const vector<vector<int>>&A,const vector<vector<int>>&B,vector<vector<int>>&resultado,int n){
     for(int i = 0; i<n; i++){
         for(int j = 0; j<n; j++){
-            C[i][j] = A[i][j]-B[i][j];
+            resultado[i][j] = A[i][j]-B[i][j];
         }
     }
 }
 
-void recursive_strassen_matrix_multiplication(const vector<vector<int>>&A,const vector<vector<int>>&B, vector<vector<int>>&C,int n){
-    if(n==1){
+void strassen_matrix_multiplication(const vector<vector<int>>& A, const vector<vector<int>>& B, vector<vector<int>>& C, int n) {
+    if(n<=1){
         C[0][0]=A[0][0]*B[0][0];
         return;
     }else{
@@ -29,42 +29,10 @@ void recursive_strassen_matrix_multiplication(const vector<vector<int>>&A,const 
         
         vector<int> vector_interno(new_n, 0);
 
-         vector<vector<int>> A11(new_n, vector_interno),
-         A12(new_n, vector_interno),
-         A21(new_n, vector_interno),
-         A22(new_n, vector_interno),
-
-         B11(new_n, vector_interno),
-         B12(new_n, vector_interno),
-         B21(new_n, vector_interno),
-         B22(new_n, vector_interno),
-
-         C11(new_n, vector_interno),
-         C12(new_n, vector_interno),
-         C21(new_n, vector_interno),
-         C22(new_n, vector_interno),
-
-         S1(new_n, vector_interno),
-         S2(new_n, vector_interno),
-         S3(new_n, vector_interno),
-         S4(new_n, vector_interno),
-         S5(new_n, vector_interno),
-         S6(new_n, vector_interno),
-         S7(new_n, vector_interno),
-         S8(new_n, vector_interno),
-         S9(new_n, vector_interno),
-         S10(new_n, vector_interno),
-        
-         P1(new_n, vector_interno),
-         P2(new_n, vector_interno),
-         P3(new_n, vector_interno),
-         P4(new_n, vector_interno),
-         P5(new_n, vector_interno),
-         P6(new_n, vector_interno),
-         P7(new_n, vector_interno),
-
-         temp_A(new_n, vector_interno),
-         temp_B(new_n, vector_interno);
+         vector<vector<int>> A11(new_n, vector_interno), A12(new_n, vector_interno),
+                            A21(new_n, vector_interno), A22(new_n, vector_interno),
+                            B11(new_n, vector_interno), B12(new_n, vector_interno),
+                            B21(new_n, vector_interno), B22(new_n, vector_interno);
 
          // Dividir las matrices en 4 sub-matrices
         for(int i = 0; i<new_n; i++){
@@ -80,51 +48,51 @@ void recursive_strassen_matrix_multiplication(const vector<vector<int>>&A,const 
                 B22[i][j] = B[i+new_n][j+new_n];
             }
         }
-        // suma: S_n = {A||B}_{i,j} + {A||B}_{i,j}
-        // resta: S_n = {A||B}_{i,j} - {A||B}_{i,j}
-        resta(B12,B22,S1,new_n);
-        suma(A11,A12,S2,new_n);
-        suma(A21,A22,S3,new_n);
-        resta(B21,B11,S4,new_n);
-        suma(A11,A22,S5,new_n);
-        suma(B11,B22,S6,new_n);
-        resta(A12,A22,S7,new_n);
-        suma(B21,B22,S8,new_n);
-        resta(A11,A21,S9,new_n);
-        suma(B11,B12,S10,new_n);
 
-        recursive_strassen_matrix_multiplication(A11,S1,P1,new_n);
-        recursive_strassen_matrix_multiplication(S2,B22,P2,new_n);
-        recursive_strassen_matrix_multiplication(S3,B11,P3,new_n);
-        recursive_strassen_matrix_multiplication(A22,S4,P4,new_n);
-        recursive_strassen_matrix_multiplication(S5,S6,P5,new_n);
-        recursive_strassen_matrix_multiplication(S7,S8,P6,new_n);
-        recursive_strassen_matrix_multiplication(S9,S10,P7,new_n);
+    // Crear solo dos matrices temporales reciclables
+        vector<vector<int>> tempA(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> tempB(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m1(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m2(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m3(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m4(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m5(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m6(new_n, vector<int>(new_n, 0));
+        vector<vector<int>> m7(new_n, vector<int>(new_n, 0));
 
-        // C11 = P5 + P4 - P2 + P6
-        suma(P5,P4,temp_A,new_n);
-        resta(temp_A,P2,temp_B,new_n);
-        suma(temp_B,P6,C11,new_n);
-        // C12 = P1 + P2
-        suma(P1,P2,C12,new_n);
-        // C21 = P3 + P4
-        suma(P3,P4,C21,new_n);
-        // C22 = P5 + P1 + - P3 - P7
-        suma(P5,P1,temp_A,new_n);
-        resta(temp_A,P3,temp_B,new_n);
-        resta(temp_B,P7,C22,new_n);
+        // 3. Llamadas recursivas pasando el destino (mX) por referencia
+        suma(A11, A22, tempA, new_n);
+        suma(B11, B22, tempB, new_n);
+        strassen_matrix_multiplication(tempA, tempB, m1, new_n);
 
-        for(int i = 0; i<new_n; i++){
-            for(int j = 0; j<new_n; j++){
-                C[i][j]=C11[i][j];
-                C[i][j+new_n]=C12[i][j];
-                C[i+new_n][j]=C21[i][j];
-                C[i+new_n][j+new_n]=C22[i][j];
+        suma(A21, A22, tempA, new_n);
+        strassen_matrix_multiplication(tempA, B11, m2, new_n);
+
+        resta(B12, B22, tempB, new_n);
+        strassen_matrix_multiplication(A11, tempB, m3, new_n);
+
+        resta(B21, B11, tempB, new_n);
+        strassen_matrix_multiplication(A22, tempB, m4, new_n);
+
+        suma(A11, A12, tempA, new_n);
+        strassen_matrix_multiplication(tempA, B22, m5, new_n);
+
+        resta(A21, A11, tempA, new_n);
+        suma(B11, B12, tempB, new_n);
+        strassen_matrix_multiplication(tempA, tempB, m6, new_n);
+
+        resta(A12, A22, tempA, new_n);
+        suma(B21, B22, tempB, new_n);
+        strassen_matrix_multiplication(tempA, tempB, m7, new_n);
+
+        vector<vector<int>> C(n, vector<int>(n));
+        for (int i = 0; i < new_n; i++) {
+            for (int j = 0; j < new_n; j++) {
+                C[i][j]                   = m1[i][j] + m4[i][j] - m5[i][j] + m7[i][j];
+                C[i][j + new_n]         = m3[i][j] + m5[i][j];
+                C[i + new_n][j]         = m2[i][j] + m4[i][j];
+                C[i + new_n][j + new_n] = m1[i][j] - m2[i][j] + m3[i][j] + m6[i][j];
             }
         }
     }
-}
-
-void strassen_matrix_multiplication(const vector<vector<int>>&A,const vector<vector<int>>&B, vector<vector<int>>&C,int n){
-    recursive_strassen_matrix_multiplication(A,B,C,n);
 }
