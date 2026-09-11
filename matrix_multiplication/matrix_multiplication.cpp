@@ -122,8 +122,7 @@ int main(){
                                         << t_naive << ","
                                         << mem_naive << "\n";
                     
-                    guardar_matriz(file_out_naive,C,n);
-                    fill(C.begin(),C.end(),vector<int>(n,0));
+                    guardar_matriz(file_out_naive,C,n); 
 
                     Timer t2;
                     strassen_matrix_multiplication(A,B,C,n);
