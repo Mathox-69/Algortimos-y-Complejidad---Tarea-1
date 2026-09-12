@@ -13,7 +13,7 @@ Algortimos: Naive, Strassen
 ### Programa principal
 matrix_mutiplication.cpp
 #### Referencias
-* Naive: [link](https://cplusplus.algorithmexamples.com/web/Mathematical/Matrix%20Multiplication.html)
+* Naive: [link](https://github.com/Mathox-69/Algortimos-y-Complejidad---Tarea-1.git)
 * Strassen: [link 1](https://github.com/dmonaldo/strassen-matrix-multiplication/blob/master/main.cpp) y [link 2](https://shivathudi.github.io/jekyll/update/2017/06/15/matr-mult.html)
 ### Scripts
 plot_generator.py, matrix_generator.py
