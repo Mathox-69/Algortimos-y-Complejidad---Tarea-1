@@ -36,7 +36,7 @@ plot_generator.py, array_generator.py
 
 Para ejecutar el Makefile respectivo para multiplicación de matrices y de ordenamiento de arreglo unidemensional, se debe ejecutar `make run` en las carpetas `code/matrix_multiplication` y `code/sorting`. Además se ejecutaran el script `plot_generator.py` después de la compilacion y ejecución de los programas principal respectivo.
 
-Para la limpieza de archivos se debe ejecutar `make clean`, que eliminara todos los objetos, outputs y plots generados al usar `make run`. Tambien eliminara los inputs de los arreglos y matrices, por lo que antes de iniciar un `make run` despues de un `make clean`, se debe ejecutar los scripts respectivos de generación para que funcione correctamente.
+Para la limpieza de archivos se debe ejecutar `make clean`, que eliminara todos los objetos, outputs, csv y plots generados al usar `make run`. Tambien eliminara los inputs de los arreglos y matrices, por lo que antes de iniciar un `make run` despues de un `make clean`, se debe ejecutar los scripts respectivos de generación para que funcione correctamente.
 
 
 
