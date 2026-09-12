@@ -88,7 +88,6 @@ int main(){
     vector<vector<int>> matrix_1;
     vector<vector<int>> matrix_2;
     vector<int> n_valores = {16,64,256,1024};
-    //vector<int> n_valores = {16,64,256};
     vector<string> t_valores = {"dispersa", "diagonal", "densa"};
     vector<string> d_valores = {"D0", "D10"};
     vector<string> m_valores = {"a", "b", "c"};
@@ -114,6 +113,7 @@ int main(){
                     naive_matrix_multiplication(A,B,C,n);
                     double t_naive = t1.ms();
                     long mem_naive = obtener_memoria_kb();
+                    guardar_matriz(file_out_naive,C,n);
 
                     csv_file << "naive," << n << "," 
                                         << t << "," 
@@ -121,8 +121,6 @@ int main(){
                                         << m << "," 
                                         << t_naive << ","
                                         << mem_naive << "\n";
-                    
-                    guardar_matriz(file_out_naive,C,n); 
 
                     Timer t2;
                     strassen_matrix_multiplication(A,B,C,n);
@@ -136,6 +134,7 @@ int main(){
                                         << m << "," 
                                         << t_strassen << "," 
                                         << mem_strassen << "\n";
+                    
                 }
             }
         }
